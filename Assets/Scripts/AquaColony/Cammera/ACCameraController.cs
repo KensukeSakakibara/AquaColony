@@ -10,7 +10,6 @@ namespace AquaColony.Camera
 		public float speedY = 0.2f;
 
 		public GameObject focusObj;
-		public GameObject ground;
 
 		private int MOUSE_LEFT = 0;
 		private int MOUSE_RIGHT = 1;
@@ -20,7 +19,7 @@ namespace AquaColony.Camera
 		private Vector2 oldPosition;
 
 		// フォーカスからカメラまでの距離
-		private float distance = 10.0f;
+		private float distance = 5.0f;
 
 		// カメラのラジアン角度
 		private float cameraRadian = 0.0f;
@@ -34,7 +33,8 @@ namespace AquaColony.Camera
 		}
 
 		// Use this for initialization
-		void Start () {
+		void Start ()
+		{
 			oldPosition = Vector2.zero;
 
 			// カメラの角度をセットする
@@ -95,9 +95,9 @@ namespace AquaColony.Camera
 		// カメラを回転させる
 		private void cameraRotate(Vector2 diff)
 		{
-			// 地面を基準にしてカメラ回転
+			// カメラの水平回転は地面を基準にする
 			Vector3 focusPosition = this.focusObj.transform.position;
-			this.transform.RotateAround(focusPosition, this.ground.transform.up, this.speedX * diff.x);
+			this.transform.RotateAround(focusPosition, Vector3.up, this.speedX * diff.x);
 
 			// 縦方向の回転はカメラのローカル座標系のX軸で回転する
 			this.transform.RotateAround(focusPosition, this.transform.right, this.speedY * -diff.y);
